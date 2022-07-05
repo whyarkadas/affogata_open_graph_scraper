@@ -1,10 +1,10 @@
 module Api
   module V1
-    class OgEntitiesController < ApplicationController
-      # TODO : Add before authentication here.
-
+    class OpenGraphEntitiesController < ApplicationController
+      # TODO: Add before authenticate.
+      # before_action :authenticate_user
       def index
-        og_entities = OgEntity.order('created_at DESC').page params[:page]
+        og_entities = OpenGraphEntity.order('created_at DESC').page params[:page]
         render json: {status: 'SUCCESS', message: 'Loaded open graph entities', data: og_entities}, status: :ok
       end
 
@@ -16,7 +16,7 @@ module Api
             return
           end
 
-          OgEntity.create!(
+          OpenGraphEntity.create!(
             'title': open_graph_data.title,
             'type': open_graph_data.type,
             'url': open_graph_data.url,
@@ -27,11 +27,11 @@ module Api
           render json: {status: 'ERROR', message: 'OG data is incomplete/missing'}, status: :bad_request
           return
         rescue Exception => e
-          render json: {status: 'ERROR', message: "Error while fetching og entity, #{e.message}"}, status: :bad_request
+          render json: {status: 'ERROR', message: "Error while fetching open graph entity, #{e.message}"}, status: :bad_request
           return
         end
 
-        render json: {status: 'SUCCESS', message: 'Og entity fetched successfully'}, status: :ok
+        render json: {status: 'SUCCESS', message: 'Open graph entity fetched successfully'}, status: :ok
       end
 
       private

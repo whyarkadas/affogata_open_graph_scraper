@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "og_entities", force: :cascade do |t|
+  create_table "open_graph_entities", force: :cascade do |t|
     t.string "url"
     t.string "type"
     t.string "title"
