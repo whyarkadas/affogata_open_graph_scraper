@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113100) do
 
   create_table "open_graph_entities", force: :cascade do |t|
     t.string "url"
-    t.string "type"
+    t.string "entity_type"
     t.string "title"
     t.text "description"
     t.text "images", default: [], array: true
