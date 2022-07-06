@@ -10,6 +10,11 @@ module Api
 
       def create
         begin
+          unless OpenGraphEntity.find_by_url(og_entity_params).nil?
+            render json: {status: 'SUCCESS', message: 'Open graph entity already exist in our database'}, status: :ok
+            return
+          end
+
           open_graph_data = OpenGraphService.new(og_entity_params).call
           if open_graph_data.nil?
             render json: {status: 'ERROR', message: 'OG data is incomplete/missing'}, status: :bad_request
@@ -24,10 +29,10 @@ module Api
             'images': open_graph_data.images
           )
         rescue ActiveRecord::RecordInvalid => invalid
-          render json: {status: 'ERROR', message: 'OG data is incomplete/missing'}, status: :bad_request
+          render json: {status: 'ERROR', message: "OG data is incomplete/missing #{invalid.message}"}, status: :bad_request
           return
-        rescue Exception => e
-          render json: {status: 'ERROR', message: "Error while fetching open graph entity, #{e.message}"}, status: :bad_request
+        rescue Exception => exception
+          render json: {status: 'ERROR', message: "Error while fetching open graph entity, #{exception.message}"}, status: :bad_request
           return
         end
 
