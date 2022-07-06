@@ -46,6 +46,20 @@ $ bin/setup
      }
      ```
 
+## Used Tools and Libraries
+* postgresql
+  * used as persistence data layer.
+* rspec
+  * used as Ruby unit test library
+* faker
+  * used to produce fake data in unit tests
+* opengraph_parser
+  * used to parse open graph data
+* kaminari 
+  * used for pagination
+* database_cleaner-active_record
+  * used for cleaning test database after every rspec run.
+
 ## Test
 
 Rspec unit test written for Get and Post end points of open graph entities to run them
