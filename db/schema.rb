@@ -15,13 +15,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113100) do
   enable_extension "plpgsql"
 
   create_table "open_graph_entities", force: :cascade do |t|
-    t.string "url", null: false
+    t.string "url"
     t.string "entity_type"
     t.string "title", null: false
     t.text "description", null: false
     t.text "images", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["url"], name: "unique_urls", unique: true
   end
 
 end
