@@ -10,12 +10,12 @@ module Api
 
       def create
         begin
-          unless OpenGraphEntity.find_by_url(og_entity_params).nil?
+          unless OpenGraphEntity.find_by_url(og_entity_params.fetch(:url)).nil?
             render json: {status: 'SUCCESS', message: 'Open graph entity already exist in our database'}, status: :ok
             return
           end
 
-          open_graph_data = OpenGraphService.new(og_entity_params).call
+          open_graph_data = OpenGraphService.new(og_entity_params.fetch(:url)).call
           if open_graph_data.nil?
             render json: {status: 'ERROR', message: 'OG data is incomplete/missing'}, status: :bad_request
             return
@@ -42,7 +42,7 @@ module Api
       private
 
       def og_entity_params
-        params.require(:url)
+        params.require(:open_graph_entity).permit(:url)
       end
     end
   end
